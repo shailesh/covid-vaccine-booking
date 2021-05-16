@@ -1,4 +1,4 @@
-<h1 align="center"> Bombardier Fully Automated COVID-19 Vaccination Slot Booking Script</h1>
+<h1 align="center"> Fully Automated COVID-19 Vaccination Slot Booking Script</h1>
 
 <div align="center">
 
