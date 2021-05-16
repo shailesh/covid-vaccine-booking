@@ -4,7 +4,7 @@
 
 <i>This is a fork over the neat [covid-vaccine-booking](https://github.com/bombardier-gif/covid-vaccine-booking). Thanks for creating a playground for me to build on :metal:</i>
 
-<i>Loved the project? Please consider [donating](http://buymeacoff.ee/bombardier) to help it improve!</i>
+<i>Loved the project? Please consider [donating](http://buymeacoff.ee/shailes) to help it improve!</i>
 
 </div>
 
