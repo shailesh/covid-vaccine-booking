@@ -58,6 +58,9 @@ def viable_options(resp, minimum_slots, min_age_booking, fee_type, dose_num):
                         "district": center["district_name"],
                         "pincode": center["pincode"],
                         "center_id": center["center_id"],
+                        "vaccine": session["vaccine"],
+                        "fee_type": center["fee_type"],
+                        "fee": session.get("fee", "0"),
                         "available": available_capacity,
                         "date": session["date"],
                         "slots": session["slots"],
@@ -217,7 +220,7 @@ def collect_user_details(request_header):
 
     # Get search start date
     start_date = input(
-        "\nSearch for next seven day starting from when?\nUse 1 for today, 2 for tomorrow, or provide a date in the format yyyy-mm-dd. Default 2: "
+        "\nSearch for next seven day starting from when?\nUse 1 for today, 2 for tomorrow, or provide a date in the format dd-mm-yyyy. Default 2: "
     )
     if not start_date:
         start_date = 2
@@ -225,7 +228,7 @@ def collect_user_details(request_header):
         start_date = int(start_date)
     else:
         try:
-            datetime.datetime.strptime(start_date, "%Y-%m-%d")
+            datetime.datetime.strptime(start_date, "%d-%m-%Y")
         except ValueError:
             start_date = 2
             print('Invalid Date! Proceeding with tomorrow.')
@@ -725,6 +728,8 @@ def get_districts(request_header):
         os.system("pause")
         sys.exit(1)
 
+def fetch_beneficiaries(request_header):
+    return requests.get(BENEFICIARIES_URL, headers=request_header)
 
 def get_beneficiaries(request_header):
     """
@@ -733,7 +738,7 @@ def get_beneficiaries(request_header):
         2. Prompts user to select the applicable beneficiaries, and
         3. Returns the list of beneficiaries as list(dict)
     """
-    beneficiaries = requests.get(BENEFICIARIES_URL, headers=request_header)
+    beneficiaries = fetch_beneficiaries(request_header)
 
     if beneficiaries.status_code == 200:
         beneficiaries = beneficiaries.json()["beneficiaries"]
