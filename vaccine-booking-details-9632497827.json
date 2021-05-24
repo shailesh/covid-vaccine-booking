@@ -1,0 +1,36 @@
+{
+    "auto_book": "yes-please",
+    "beneficiary_dtls": [
+        {
+            "age": 32,
+            "bref_id": "30105137211170",
+            "name": "Suchitra Krishnakumar",
+            "status": "Not Vaccinated",
+            "vaccine": ""
+        },
+        {
+            "age": 33,
+            "bref_id": "16525277266220",
+            "name": "Aashrith Ramesh",
+            "status": "Not Vaccinated",
+            "vaccine": ""
+        }
+    ],
+    "captcha_automation": "y",
+    "fee_type": [
+        "Free",
+        "Paid"
+    ],
+    "location_dtls": [
+        {
+            "alert_freq": 1100,
+            "district_id": 294,
+            "district_name": "BBMP"
+        }
+    ],
+    "minimum_slots": 2,
+    "refresh_freq": 4,
+    "search_option": 2,
+    "start_date": 1,
+    "vaccine_type": null
+}
