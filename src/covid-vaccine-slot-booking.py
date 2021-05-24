@@ -140,7 +140,7 @@ def main():
                             token = generate_token_OTP_manual(mobile, base_request_header)
 
                 check_and_book(
-                    request_header, 
+                    request_header,
                     info.beneficiary_dtls,
                     info.location_dtls,
                     info.pin_code_location_dtls,

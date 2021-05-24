@@ -1,4 +1,3 @@
-
 def test_captcha_builder():
     from PIL import Image
     from svglib.svglib import svg2rlg
@@ -13,13 +12,13 @@ def test_captcha_builder():
     im.save('captcha.gif')
 
     layout = [[sg.Image('captcha.gif')],
-          [sg.Text("Enter Captcha Below")],
-          [sg.Input(key='input')],
-          [sg.Button('Submit', bind_return_key=True)]]
+              [sg.Text("Enter Captcha Below")],
+              [sg.Input(key='input')],
+              [sg.Button('Submit', bind_return_key=True)]]
 
     print("window opening ...")
     window = sg.Window('Enter Captcha', layout, finalize=True)
-    window.TKroot.focus_force()         # focus on window
+    window.TKroot.focus_force()  # focus on window
     window.Element('input').SetFocus()  # focus on field
     event, values = window.read()
     window.close()
@@ -27,10 +26,13 @@ def test_captcha_builder():
     captcha_value = values['input']
     expected_captcha_value = "SNNvu"
     if captcha_value == expected_captcha_value:
-        print("Yeah !!! you have entered captcha. This means you are all set to render required captcha at the time of booking ...\n")
+        print(
+            "Yeah !!! you have entered captcha. This means you are all set to render required captcha at the time of booking ...\n")
     else:
-        print("\nOhh NO !!! you have entered wrong captcha : %s while expected: %s" % (captcha_value, expected_captcha_value))
+        print("\nOhh NO !!! you have entered wrong captcha : %s while expected: %s" % (
+        captcha_value, expected_captcha_value))
         print("Check if you are missing any required python packages\n\n")
+
 
 def test_captcha_builder_auto():
     import re, json, base64, os, sys, time
@@ -57,13 +59,14 @@ def test_captcha_builder_auto():
 
     for char in CAPTCHA:
         CAPTCHA_STRING += char[1]
-    
+
     toc = time.perf_counter()
     if CAPTCHA_STRING == "SNNvu":
         print(f"Captcha solve success: {CAPTCHA_STRING}")
         print(f"It took {toc - tic:0.5f} seconds to solve captcha")
     else:
         print(f"Task finished with wrongly predicted value - {CAPTCHA_STRING}")
+
 
 def test_python_packages():
     try:
@@ -76,6 +79,7 @@ def test_python_packages():
     except Exception:
         print("\n!!!!! Looks like you are missing required python packages. Please look at requirements.txt !!!!")
         exit(1)
+
 
 def test_tkinter_lib():
     try:
@@ -90,7 +94,7 @@ def test_tkinter_lib():
     try:
         import tkinter
         tkinter_version = tkinter.Tcl().eval('info patchlevel')
-        print("Installed tkinter_version: %s \n %s" % (tkinter_version, "-"*100))
+        print("Installed tkinter_version: %s \n %s" % (tkinter_version, "-" * 100))
         print('Opening test window. Click on "Quit" to run further tests')
         tkinter._test()
     except Exception:

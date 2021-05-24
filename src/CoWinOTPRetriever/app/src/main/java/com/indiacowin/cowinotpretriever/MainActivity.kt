@@ -37,7 +37,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mStatusTextView: TextView
     private lateinit var mStartListeningCowinOtpSwitch: SwitchCompat
 
+<<<<<<< HEAD
     private lateinit var mSharedPrefrences : SharedPreferences
+=======
+    private lateinit var mSharedPreferences : SharedPreferences
+>>>>>>> 3ae9c26b0de8e106ac44b0afbe4580473a8049e1
     private lateinit var mHandler: Handler
 
 
@@ -77,7 +81,11 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(mMainActivityReceiver, intentFilter)
 
         // initialize shared preferences
+<<<<<<< HEAD
         mSharedPrefrences = getPreferences(MODE_PRIVATE)
+=======
+        mSharedPreferences = getPreferences(MODE_PRIVATE)
+>>>>>>> 3ae9c26b0de8e106ac44b0afbe4580473a8049e1
 
         // initialize ui elements so we can use it later
         mPhoneNumberEntry = findViewById(R.id.PhoneNumberEntry)
@@ -104,25 +112,36 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val savedPhoneNumber = mSharedPrefrences.getString(getString(R.string.phone_number_id), null)
-        val savedBucketKey = mSharedPrefrences.getString(getString(R.string.kvdb_bucket_key_id), getString(R.string.kvdb_default_key))
-        if(savedPhoneNumber != null) {
-            mPhoneNumberEntry.setText(savedPhoneNumber)
+        Log.d("OTPDebug", "onResume() called")
+        if(!mStartListeningCowinOtpSwitch.isChecked) {
+            val savedPhoneNumber = mSharedPreferences.getString(getString(R.string.phone_number_id), null)
+            val savedBucketKey = mSharedPreferences.getString(getString(R.string.kvdb_bucket_key_id), getString(R.string.kvdb_default_key))
+            if(savedPhoneNumber != null) {
+                mPhoneNumberEntry.setText(savedPhoneNumber)
+                Log.d("OTPDebug", "onResume() set PhoneNumber from cache.")
+            }
+            mKvdbBucketkeyEntry.setText(savedBucketKey)
+            Log.d("OTPDebug", "onResume() set BucketKey from cache.")
         }
-        mKvdbBucketkeyEntry.setText(savedBucketKey)
     }
 
     override fun onPause() {
         super.onPause()
-        val editor = mSharedPrefrences.edit()
+        Log.d("OTPDebug", "onPause() called")
+        val editor = mSharedPreferences.edit()
         editor.putString(getString(R.string.phone_number_id), mPhoneNumberEntry.text.toString())
         editor.putString(getString(R.string.kvdb_bucket_key_id), mKvdbBucketkeyEntry.text.toString())
+        Log.d("OTPDebug", "onPause() called. Saving user entered values to cache.")
         editor.apply()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+<<<<<<< HEAD
 
+=======
+        Log.d("OTPDebug", "onDestroy() called")
+>>>>>>> 3ae9c26b0de8e106ac44b0afbe4580473a8049e1
         // Remove all callbacks on the handler
         mHandler.removeCallbacksAndMessages(null)
         // Cancel any pending volley requests
@@ -166,6 +185,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startSMSListener() {
+        Log.d("OTPDebug", "Start SMS listener called.")
         // disable phone number entry
         mPhoneNumberEntry.keyListener = null
 
@@ -188,6 +208,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun endSMSListener() {
+        Log.d("OTPDebug", "End SMS listener called.")
         // enable phone number entry
         mPhoneNumberEntry.keyListener = mPhoneNumberEntryKeyListener
 
@@ -206,7 +227,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun onOTPReceived(sender: String, sms: String, otp: Int, retryCounter: Int) {
         if(retryCounter == 0) {
+<<<<<<< HEAD
             //Log.d("Debug", "New OTP is $otp.")
+=======
+            Log.d("OTPDebug", "New CoWIN OTP received.")
+>>>>>>> 3ae9c26b0de8e106ac44b0afbe4580473a8049e1
             Toast.makeText(this, getString(R.string.otp_received_toast, mKvdbUrl, sender), Toast.LENGTH_LONG).show()
         }
         // request a string response from the provided URL.
@@ -216,15 +241,26 @@ class MainActivity : AppCompatActivity() {
             { response ->
                 val trimmedResponse = if(response.length > 500) { response.substring(0, 500) } else { response }
                 // Display the first 500 characters of the response string.
+<<<<<<< HEAD
+=======
+                Log.d("OTPDebug", "OTP sent successfully.")
+>>>>>>> 3ae9c26b0de8e106ac44b0afbe4580473a8049e1
                 mStatusTextView.text = getString(R.string.otp_send_success, trimmedResponse)
             },
             { response ->
                 mStatusTextView.text = getString(R.string.send_otp_fail_message,
                     VolleyErrorHelper.getMessage(response, this), retryCounter + 1)
+<<<<<<< HEAD
 
                 // Retry every 10 seconds for 3 minutes (18 times) or until new OTP is received
                 if(retryCounter < 18 && otp == mCurrentOTP) {
                     //Log.d("Debug", "RetryCounter value is $retryCounter. OTP is $otp. Retrying in 10 seconds..")
+=======
+                Log.d("OTPDebug", "Sending OTP failed with error ${VolleyErrorHelper.getMessage(response, this)}")
+                // Retry every 10 seconds for 3 minutes (18 times) or until new OTP is received
+                if(retryCounter < 18 && otp == mCurrentOTP) {
+                    Log.d("OTPDebug", "Re-sending OTP SMS : retryCounter value is $retryCounter. Retrying in 10 seconds..")
+>>>>>>> 3ae9c26b0de8e106ac44b0afbe4580473a8049e1
                     mHandler = Handler(Looper.getMainLooper())
                     mHandler.postDelayed({
                         onOTPReceived(sender, sms, otp, retryCounter + 1)
