@@ -31,7 +31,10 @@ def main():
 
     try:
         base_request_header = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
+            "authority": "cdn-api.co-vin.in",
+            "origin": "https://selfregistration.cowin.gov.in",
+            "referer": "https://selfregistration.cowin.gov.in/"
         }
 
         token = None
